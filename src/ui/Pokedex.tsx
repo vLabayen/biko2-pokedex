@@ -1,12 +1,16 @@
 import React from "react";
 import { get_sprite_url } from "../api/api";
-import { Card } from "./components/Card";
+import { Card } from "./components/card/Card";
 
 function Pokedex() {
-  get_sprite_url("charmander");
   return (
     <div style={{ margin: "30px" }}>
-      <Card pokemonType="grass" />
+      <Card
+        pokemonName="bulbasaur"
+        pokemonType="grass"
+        weight={6.9}
+        height={0.7}
+      />
     </div>
   );
 }

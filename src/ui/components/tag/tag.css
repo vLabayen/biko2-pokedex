@@ -1,0 +1,10 @@
+.tag__text{
+    border-radius: 0.625rem;
+    background-color: var(--color-type);
+    color: white;
+    padding: var(--spacing-xxtiny) var(--spacing-tiny);
+}
+.tag__text::first-letter {
+    text-transform: uppercase;
+}
+

@@ -1,0 +1,9 @@
+.cardsContainer{
+    m: 75rem;
+    padding: 0 7.885rem;
+
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}

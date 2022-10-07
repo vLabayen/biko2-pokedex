@@ -1,17 +1,20 @@
 import React from "react";
-import { get_sprite_url } from "../api/api";
-import { Card } from "./components/card/Card";
+import { CardsContainer } from "./components/CardsContainer/CardsContainer";
+import { SearchBar } from "./components/SearchBar/SearchBar";
+import "./pokedex.css";
 
 function Pokedex() {
   return (
-    <div style={{ margin: "30px" }}>
-      <Card
-        pokemonName="bulbasaur"
-        pokemonType="grass"
-        weight={6.9}
-        height={0.7}
-      />
-    </div>
+    <>
+      <header className="pokeHeader">
+        <div></div>
+      </header>
+      <main className="pokeMain">
+        <SearchBar />
+        <CardsContainer />
+      </main>
+      <footer className="pokeFooter"></footer>
+    </>
   );
 }
 

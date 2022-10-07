@@ -1,0 +1,9 @@
+.cardsContainer{
+    max-width: 62rem;
+    padding: 0 var(--spacing-large);
+
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}

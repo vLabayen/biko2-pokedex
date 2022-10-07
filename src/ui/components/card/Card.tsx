@@ -4,37 +4,70 @@ import "./card.css";
 import { get_sprite_url } from "../../../api/api";
 
 interface Props {
+  pokeID: number;
   pokemonName: string;
-  pokemonType: string;
+  pokemonTypes: Array<string>;
   weight: number;
   height: number;
+  description: string;
 }
 
-export const Card = ({ pokemonName, pokemonType, weight, height }: Props) => {
-  const [sprite_url, set_sprite_url] = useState(undefined);
+interface PokeData {
+  pokemonId: number;
+  pokemonTypes: Array<string>;
+  weight: number;
+  height: number;
+  description: string;
+  imageUrl: string;
+}
+
+export const Card = ({
+  pokeID,
+  pokemonName,
+  pokemonTypes,
+  weight,
+  height,
+  description,
+}: Props) => {
+  const [pokemon, setPokemon] = useState<PokeData>();
 
   useEffect(() => {
-    const get_sprite = async () => {
+    const get_Pokemon = async () => {
       const url = await get_sprite_url(pokemonName);
-      set_sprite_url(url);
+      const data: PokeData = {
+        pokemonId: 1,
+        pokemonTypes: ["grass"],
+        weight: 0.6,
+        height: 1.2,
+        description: "lorem ipsum",
+        imageUrl: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png`,
+      };
+      setPokemon(data);
     };
-
-    get_sprite();
+    get_Pokemon();
   }, [pokemonName]);
 
+  const primaryType = pokemonTypes[0];
+  const pokeID_string = `#${String(pokeID).padStart(3, "0")}`;
+
   return (
-    <div className={`card color__type--${pokemonType}`}>
+    <div className={`card color__type--${primaryType}`}>
       <header className="card__header">
-        <h2 className="card-title font-bold-large">Bulbasur</h2>
-        <h3 className="card-id font-bold-medium">#001</h3>
+        <h2 className="card-title font-bold-large">{pokemonName}</h2>
+        <h3 className="card-id font-bold-medium">{pokeID_string}</h3>
       </header>
       <picture className="card__imgHolder">
-        <img className="card__img" src={sprite_url} alt={pokemonName} />
+        <img
+          className="card__img"
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon?.pokemonId}.png`}
+          alt={pokemonName}
+        />
       </picture>
       <div className="card__info">
         <div className="card__tags">
-          <Tag type={pokemonType} />
-          <Tag type="poison" />
+          {pokemonTypes.map((type, idx) => (
+            <Tag key={idx} type={type} />
+          ))}
         </div>
         <h3 className="card__about font-bold-medium"> About</h3>
         <div className="card__physical">
@@ -59,10 +92,7 @@ export const Card = ({ pokemonName, pokemonType, weight, height }: Props) => {
             <div className="card__measureText font-regular-small">Moves</div>
           </div>
         </div>
-        <p className="card__description font-regular-tiny">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
+        <p className="card__description font-regular-tiny">{description}</p>
       </div>
     </div>
   );
